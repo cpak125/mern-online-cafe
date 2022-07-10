@@ -17,12 +17,16 @@ app.use(express.json());
 app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'build')));
 
-// Check if token and create req.user
+// Middleware to verify the token and assign user object of payload to req.user
+// Make sure to mount before routes
 app.use(require('./config/checkToken'));
 
 // Put API routes here, before the "catch all" route
 app.use('/api/users', require('./routes/api/users'));
 
+// Protect the API routes below from anonymous users
+const ensureLoggedIn = require('./config/ensureLoggedIn');
+app.use('/api/items', ensureLoggedIn, require('./routes/api/items'));
 
 // The following "catch all" route (note the *) is necessary
 // to return the index.html on all non-AJAX requests
@@ -35,5 +39,5 @@ app.get('/*', function(req, res) {
 const port = process.env.PORT || 3001;
 
 app.listen(port, function() {
-  console.log(`Express app running on port ${port}`)
+  console.log(`Express app running on port ${port}`);
 });
