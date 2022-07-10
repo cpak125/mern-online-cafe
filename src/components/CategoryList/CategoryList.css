@@ -11,7 +11,7 @@
   border-radius: .5vmin;
   margin-bottom: .5vmin;
 }
-    
+
 .CategoryList li:hover:not(.active) {
   cursor: pointer;
   background-color: var(--orange);
@@ -19,7 +19,7 @@
 }
 
 .CategoryList li.active {
-  color: var(--text-dark);
-  background-color: var(--tan-1);
+  color: var(--white);
+  background-color: var(--orange);
   border: .1vmin solid var(--tan-3);
 }
