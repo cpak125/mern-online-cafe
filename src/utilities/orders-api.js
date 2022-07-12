@@ -25,3 +25,8 @@ export function checkout() {
   // Changing data on the server, so make it a POST request
   return sendRequest(`${BASE_URL}/cart/checkout`, 'POST');
 }
+
+// Return all paid orders of logged in user
+export function getOrderHistory() {
+  return sendRequest(`${BASE_URL}/history`);
+}

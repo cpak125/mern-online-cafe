@@ -18,7 +18,7 @@ export default function OrderDetail({ order, handleChangeQty, handleCheckout }) 
     <div className="OrderDetail">
       <div className="section-heading">
         {order.isPaid ?
-          <span>ORDER <span className="smaller">{order.orderId}</span></span>
+          <span>ORDER <span>{order.orderId}</span></span>
           :
           <span>NEW ORDER</span>
         }
