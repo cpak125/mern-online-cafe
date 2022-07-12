@@ -36,6 +36,12 @@ export default function NewOrderPage({ user, setUser }) {
     getCart();
   }, []); // Empty dependency array runs useEffect only after FIRST render
 
+  /* Event Handlers */
+  async function handleAddToOrder(itemId) {
+    const cart = await ordersAPI.addItemToCart(itemId);
+    setCart(cart);
+  }
+
   return (
     <main className="NewOrderPage">
       <aside>
@@ -50,6 +56,7 @@ export default function NewOrderPage({ user, setUser }) {
       </aside>
       <MenuList
         menuItems={menuItems.filter(item => item.category.name === activeCat)}
+        handleAddToOrder={handleAddToOrder}
       />
       <OrderDetail order={cart} />
     </main>
