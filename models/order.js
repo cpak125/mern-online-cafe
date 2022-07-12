@@ -56,7 +56,7 @@ orderSchema.statics.getCart = function(userId) {
   );
 };
 
-// Instance method for adding an item to a cart (unpaid order)
+/* Instance method for adding an item to a cart (unpaid order) */
 orderSchema.methods.addItemToCart = async function(itemId) {
   // 'this' keyword is bound to the cart (order doc)
   const cart = this;
@@ -73,6 +73,23 @@ orderSchema.methods.addItemToCart = async function(itemId) {
     cart.lineItems.push({ item });
   }
   // return the save() method's promise 
+  return cart.save();
+};
+
+/* Instance method set an item's qty in the cart
+(will add item if does not exist`) */
+orderSchema.methods.setItemQty = function(itemId, newQty) {
+  // 'this' is bound to the cart (order doc)
+  const cart = this;
+  // Find the line item in the cart for the menu item
+  const lineItem = cart.lineItems.find(lineItem => lineItem.item._id.equals(itemId));
+  if (lineItem && newQty <= 0) {
+    // Calling remove, removes itself from the cart.lineItems array
+    lineItem.remove();
+  } else if (lineItem) {
+    lineItem.qty = newQty;
+  }
+  // return the save() method's promise
   return cart.save();
 };
 
